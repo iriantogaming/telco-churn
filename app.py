@@ -28,17 +28,51 @@ st.subheader("Masukkan Data Pelanggan")
 col1, col2 = st.columns(2)
 
 with col1:
-    gender = st.selectbox("Gender", encoders["Gender"].classes_)
-    senior = st.selectbox("Senior Citizen", encoders["Senior Citizen"].classes_)
-    partner = st.selectbox("Partner", encoders["Partner"].classes_)
-    dependents = st.selectbox("Dependents", encoders["Dependents"].classes_)
-    phone_service = st.selectbox("Phone Service", encoders["Phone Service"].classes_)
-    internet_service = st.selectbox("Internet Service", encoders["Internet Service"].classes_)
+    gender = st.selectbox(
+        "Gender",
+        encoders["Gender"].classes_
+    )
+
+    senior = st.selectbox(
+        "Senior Citizen",
+        encoders["Senior Citizen"].classes_
+    )
+
+    partner = st.selectbox(
+        "Partner",
+        encoders["Partner"].classes_
+    )
+
+    dependents = st.selectbox(
+        "Dependents",
+        encoders["Dependents"].classes_
+    )
+
+    phone_service = st.selectbox(
+        "Phone Service",
+        encoders["Phone Service"].classes_
+    )
+
+    internet_service = st.selectbox(
+        "Internet Service",
+        encoders["Internet Service"].classes_
+    )
 
 with col2:
-    contract = st.selectbox("Contract", encoders["Contract"].classes_)
-    paperless = st.selectbox("Paperless Billing", encoders["Paperless Billing"].classes_)
-    payment_method = st.selectbox("Payment Method", encoders["Payment Method"].classes_)
+    contract = st.selectbox(
+        "Contract",
+        encoders["Contract"].classes_
+    )
+
+    paperless = st.selectbox(
+        "Paperless Billing",
+        encoders["Paperless Billing"].classes_
+    )
+
+    payment_method = st.selectbox(
+        "Payment Method",
+        encoders["Payment Method"].classes_
+    )
 
     tenure = st.number_input(
         "Tenure Months",
@@ -68,15 +102,32 @@ if st.button("🔍 Predict Churn", use_container_width=True):
     for col in model.feature_names_in_:
         input_data[col] = 0
 
-    input_data["Gender"] = encoders["Gender"].transform([gender])[0]
-    input_data["Senior Citizen"] = encoders["Senior Citizen"].transform([senior])[0]
-    input_data["Partner"] = encoders["Partner"].transform([partner])[0]
-    input_data["Dependents"] = encoders["Dependents"].transform([dependents])[0]
-    input_data["Phone Service"] = encoders["Phone Service"].transform([phone_service])[0]
-    input_data["Internet Service"] = encoders["Internet Service"].transform([internet_service])[0]
-    input_data["Contract"] = encoders["Contract"].transform([contract])[0]
-    input_data["Paperless Billing"] = encoders["Paperless Billing"].transform([paperless])[0]
-    input_data["Payment Method"] = encoders["Payment Method"].transform([payment_method])[0]
+    if "Gender" in input_data:
+        input_data["Gender"] = encoders["Gender"].transform([gender])[0]
+
+    if "Senior Citizen" in input_data:
+        input_data["Senior Citizen"] = encoders["Senior Citizen"].transform([senior])[0]
+
+    if "Partner" in input_data:
+        input_data["Partner"] = encoders["Partner"].transform([partner])[0]
+
+    if "Dependents" in input_data:
+        input_data["Dependents"] = encoders["Dependents"].transform([dependents])[0]
+
+    if "Phone Service" in input_data:
+        input_data["Phone Service"] = encoders["Phone Service"].transform([phone_service])[0]
+
+    if "Internet Service" in input_data:
+        input_data["Internet Service"] = encoders["Internet Service"].transform([internet_service])[0]
+
+    if "Contract" in input_data:
+        input_data["Contract"] = encoders["Contract"].transform([contract])[0]
+
+    if "Paperless Billing" in input_data:
+        input_data["Paperless Billing"] = encoders["Paperless Billing"].transform([paperless])[0]
+
+    if "Payment Method" in input_data:
+        input_data["Payment Method"] = encoders["Payment Method"].transform([payment_method])[0]
 
     if "Tenure Months" in input_data:
         input_data["Tenure Months"] = tenure
@@ -94,20 +145,20 @@ if st.button("🔍 Predict Churn", use_container_width=True):
     st.markdown("---")
 
     st.subheader("📋 Ringkasan Input")
+
     st.write(f"Monthly Charges : ${monthly:,.2f}")
     st.write(f"Total Charges : ${total:,.2f}")
 
     if prediction == 1:
         st.error("⚠️ Customer Diprediksi Akan Churn")
+        st.write("Pelanggan berpotensi berhenti menggunakan layanan.")
     else:
         st.success("✅ Customer Diprediksi Tidak Churn")
+        st.write("Pelanggan diperkirakan tetap menggunakan layanan.")
 
+    st.subheader("Data yang Dimasukkan")
     st.dataframe(input_df, use_container_width=True)
 
 
-with open("app.py", "w", encoding="utf-8") as f:
-    f.write(app_code)
-
-print("app.py berhasil dibuat")
 
 
