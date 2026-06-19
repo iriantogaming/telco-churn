@@ -18,7 +18,7 @@ st.markdown("Prediksi apakah pelanggan akan berhenti berlangganan (Churn) atau t
 with st.sidebar:
     st.header("📊 Informasi Model")
     st.write("Algoritma: Random Forest")
-    st.write("Accuracy: 80.13%")
+    st.write("Accuracy: 80.27%")
     st.write("Dataset: Telco Customer Churn")
     st.write("Jumlah Data: 7043")
     st.info("💵 Semua nilai biaya menggunakan mata uang USD ($)")
