@@ -77,7 +77,7 @@ with col2:
     tenure = st.number_input(
         "Tenure Months",
         min_value=0,
-        max_value=100,
+        max_value=360,
         value=12
     )
 
